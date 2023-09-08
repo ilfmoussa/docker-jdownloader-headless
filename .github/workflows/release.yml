@@ -125,22 +125,3 @@ jobs:
             org.opencontainers.image.created=${{ steps.prep.outputs.created }}
             org.opencontainers.image.revision=${{ github.sha }}
             org.opencontainers.image.licenses=${{ github.event.repository.license.spdx_id }}
-      -
-        name: Copy to Docker Hub
-        id: copy_images
-        if: github.event_name != 'pull_request'
-        run: |
-          for i in $(echo ${{ steps.prep.outputs.tags }} | sed "s/,/ /g")
-          do
-              GHTAG=$(echo $i | sed "s/ghcr.io/docker.io/g" | sed "s/${{ github.repository_owner }}/${{ env.DOCKER_USER }}/g")
-              skopeo copy --all --src-creds=${{ github.repository_owner }}:${{ secrets.GITHUB_TOKEN }} --dest-creds=${{ env.DOCKER_USER }}:${{ secrets.DOCKERPASSWORD }} docker://${i} docker://${GHTAG}
-          done
-      -
-        name: Docker Hub Description
-        uses: peter-evans/dockerhub-description@v3.4.1
-        if: github.event_name != 'pull_request'
-        with:
-          username: ${{ env.DOCKER_USER }}
-          password: ${{ secrets.DOCKERPASSWORD }}
-          repository: "${{ env.DOCKER_USER }}/${{ steps.prep.outputs.imagename }}"
-          short-description: ${{ github.event.repository.description }}
