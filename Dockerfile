@@ -1,5 +1,5 @@
-FROM ghcr.io/tuxpeople/baseimage-alpine:3.14.3
-
+#FROM ghcr.io/tuxpeople/baseimage-alpine:3.14.3
+FROM openjdk:11.0.12-jre-slim-bullseye
 # set args
 ARG BUILD_DATE
 ARG VERSION
@@ -31,17 +31,15 @@ VOLUME /opt/JDownloader/cfg
 
 # Upgrade and install dependencies
 # hadolint ignore=DL3018,DL3019
-RUN echo "@community http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
-    apk add --no-cache --upgrade openjdk11-jre ca-certificates libstdc++ ffmpeg wget jq moreutils && \
-    wget -q -O /opt/JDownloader/JDownloader.jar --user-agent="Github Docker Image Build (https://github.com/tuxpeople)" "http://installer.jdownloader.org/JDownloader.jar" && \
-    chmod +x /opt/JDownloader/JDownloader.jar && \
-    chmod -R 777 /opt/JDownloader*
+
+RUN apt update && apt -y upgrade && apt -y install wget ca-certificates jq && wget -q -O /opt/JDownloader/JDownloader.jar --user-agent="Github Docker Image Build (https://github.com/tuxpeople)" "http://installer.jdownloader.org/JDownloader.jar" && chmod +x /opt/JDownloader/JDownloader.jar && chmod -R 777 /opt/JDownloader*
 
 # archive extraction uses sevenzipjbinding library
 # which is compiled against libstdc++
 COPY ./ressources/${TARGETARCH}/*.jar /opt/JDownloader/libs/
-COPY ./root/ /
+#COPY ./root/ /
 COPY ./config/default-config.json.dist /etc/JDownloader/settings.json.dist
 COPY ./scripts/configure.sh /usr/bin/configure
 
 EXPOSE 3129
+CMD ["java","-Dsun.jnu.encoding=UTF-8", "-Dfile.encoding=UTF-8","-Djava.awt.headless=true","-jar","/opt/JDownloader/JDownloader.jar","-norestart"]
