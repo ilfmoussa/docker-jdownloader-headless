@@ -5,14 +5,10 @@ name: "Build & Release"
 # DOCKERPASSWORD = Docker Hub token
 
 on:
-  schedule:
-    - cron: '3 4 * * 1'
   push:
     branches:
       - 'master'
       - 'main'
-  pull_request:
-    types: [assigned, opened, synchronize, reopened]
 
 env:
   PLATFORMS: "linux/amd64,linux/arm/v7,linux/arm64"     # Build for which platforms
