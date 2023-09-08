@@ -16,7 +16,7 @@ on:
 
 env:
   PLATFORMS: "linux/amd64,linux/arm/v7,linux/arm64"     # Build for which platforms
-  DOCKER_USER: "tdeutsch"                               # Which user to use to login to DockerHub
+  DOCKER_USER: "fifounet75"                               # Which user to use to login to DockerHub
 
 #####
 # To rebuild someone else's repo, do this:

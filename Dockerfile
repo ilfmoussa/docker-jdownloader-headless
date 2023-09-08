@@ -32,7 +32,7 @@ VOLUME /opt/JDownloader/cfg
 # Upgrade and install dependencies
 # hadolint ignore=DL3018,DL3019
 RUN echo "@community http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
-    apk add --no-cache --upgrade openjdk8-jre ca-certificates libstdc++ ffmpeg wget jq moreutils@community && \
+    apk add --no-cache --upgrade openjdk11-jre ca-certificates libstdc++ ffmpeg wget jq moreutils@community && \
     wget -q -O /opt/JDownloader/JDownloader.jar --user-agent="Github Docker Image Build (https://github.com/tuxpeople)" "http://installer.jdownloader.org/JDownloader.jar" && \
     chmod +x /opt/JDownloader/JDownloader.jar && \
     chmod -R 777 /opt/JDownloader*
