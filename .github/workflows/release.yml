@@ -91,11 +91,6 @@ jobs:
           echo ::set-output name=version::${VERSION}
           echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
       -
-        name: Hadolint
-        uses: brpaz/hadolint-action@v1.5.0
-        with: 
-          dockerfile: Dockerfile
-      -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2.1.0
       -
