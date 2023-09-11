@@ -36,7 +36,7 @@ VOLUME /opt/JDownloader/cfg
 RUN ["cross-build-start"]
 RUN echo "deb http://archive.raspberrypi.org/debian/ jessie main ui staging" > /etc/apt/sources.list.d/raspi.list
 RUN rm -f /usr/bin/entry.sh
-RUN wget -qO - http://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add -
+RUN wget -qO - https://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add -
 
 RUN { \
         echo '#!/bin/bash'; \
