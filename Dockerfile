@@ -1,5 +1,5 @@
 #FROM ghcr.io/tuxpeople/baseimage-alpine:3.14.3
-FROM openjdk:11.0.12-jre-slim-bullseye
+FROM openjdk:8u342-jre-slim-bullseye
 # set args
 ARG BUILD_DATE
 ARG VERSION
