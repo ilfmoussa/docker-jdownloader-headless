@@ -1,5 +1,6 @@
 #FROM ghcr.io/tuxpeople/baseimage-alpine:3.14.3
-FROM openjdk:8u342-jre-slim-bullseye
+FROM balenalib/raspberrypi4-64-debian-openjdk:11
+
 # set args
 ARG BUILD_DATE
 ARG VERSION
