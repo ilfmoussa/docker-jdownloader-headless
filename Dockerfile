@@ -38,9 +38,10 @@ RUN apt-get update && apt-get install -y wget ca-certificates jq && wget -q -O /
 # archive extraction uses sevenzipjbinding library
 # which is compiled against libstdc++
 COPY ./ressources/${TARGETARCH}/*.jar /opt/JDownloader/libs/
-#COPY ./root/ /
+
 COPY ./config/default-config.json.dist /etc/JDownloader/settings.json.dist
 COPY ./scripts/configure.sh /usr/bin/configure
+COPY ./entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-EXPOSE 3129
-CMD ["java","-Dsun.jnu.encoding=UTF-8", "-Dfile.encoding=UTF-8","-Djava.awt.headless=true","-jar","/opt/JDownloader/JDownloader.jar","-norestart"]
+CMD [ "/entrypoint.sh" ]
