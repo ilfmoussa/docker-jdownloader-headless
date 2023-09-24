@@ -1,6 +1,6 @@
 #FROM ghcr.io/tuxpeople/baseimage-alpine:3.14.3
 #FROM balenalib/raspberrypi4-64-debian-openjdk:11
-FROM fifounet75/ubuntu:arm
+FROM ghcr.io/ilfmoussa/ubuntu-jdk:arm
 
 # set args
 ARG BUILD_DATE
@@ -33,7 +33,7 @@ VOLUME /opt/JDownloader/cfg
 
 # Upgrade and install dependencies
 
-RUN apt-get update && apt-get install -y wget ca-certificates jq && wget -q -O /opt/JDownloader/JDownloader.jar --user-agent="Github Docker Image Build (https://github.com/tuxpeople)" "http://installer.jdownloader.org/JDownloader.jar" && chmod +x /opt/JDownloader/JDownloader.jar && chmod -R 777 /opt/JDownloader*
+RUN apt-get update && apt-get install -y wget ca-certificates jq && chmod -R 777 /opt/JDownloader*
 
 # archive extraction uses sevenzipjbinding library
 # which is compiled against libstdc++
